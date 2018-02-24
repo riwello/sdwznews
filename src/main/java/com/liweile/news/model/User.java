@@ -5,7 +5,7 @@ public class User {
 
     private String password;
 
-    private Integer department;
+    private int  department;
 
     private String name;
 
