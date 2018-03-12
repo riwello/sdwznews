@@ -24,4 +24,14 @@ public class NewsController {
         return newsService.getNewsList(type, page, size);
     }
 
+
+      @RequestMapping("/search")
+    public ResponseEntity<List<News>> serachNews(@RequestParam int page, @RequestParam int size, @RequestParam String word) {
+
+        return newsService.serachNews(word, page, size);
+    }
+
+
+
+
 }

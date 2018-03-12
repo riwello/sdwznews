@@ -1,6 +1,6 @@
 package com.liweile.news.service;
 
-import com.liweile.news.model.Collection;
+import com.liweile.news.model.Collect;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -8,9 +8,9 @@ import java.util.List;
 public interface CollectionService {
 
 
-    ResponseEntity<List<Collection>> getCollectListByUsername(String username);
+    ResponseEntity<List<Collect>> getCollectListByUsername(String username);
 
-    void addCollection(Collection collection);
+    void addCollection(Collect collection);
 
 
 }

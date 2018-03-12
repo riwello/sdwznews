@@ -5,7 +5,7 @@ public class User {
 
     private String password;
 
-    private int  department;
+    private Integer department;
 
     private String name;
 
@@ -13,12 +13,13 @@ public class User {
 
     private String classname;
 
-    public User() {
-    }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User() {
     }
 
     public String getUsername() {

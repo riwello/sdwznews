@@ -9,4 +9,6 @@ public interface NewsService {
 
 
     ResponseEntity<List<News>> getNewsList(String type,int page,int size);
+
+    ResponseEntity<List<News>> serachNews(String word, int page, int size);
 }

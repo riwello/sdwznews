@@ -1,23 +1,17 @@
 package com.liweile.news.mapper;
 
 import com.liweile.news.model.News;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 public interface NewsMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(News record);
+    @Select("SELECT * FROM news WHERE type = #{type}")
+    List<News> selectNews(String type);
 
-    int insertSelective(News record);
+    @Select("SELECT * FROM news WHERE title like '%'#{word}'%'")
+    List<News> searchNews(String word);
 
-    News selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(News record);
-
-    int updateByPrimaryKeyWithBLOBs(News record);
-
-    int updateByPrimaryKey(News record);
-
-    List<News> selectByType(String type);
 }

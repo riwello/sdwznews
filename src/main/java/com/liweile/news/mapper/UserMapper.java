@@ -1,17 +1,18 @@
 package com.liweile.news.mapper;
 
 import com.liweile.news.model.User;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface UserMapper {
-    int deleteByPrimaryKey(String username);
+    @Insert(value = "INSERT INTO user(username,password,department,name,age,classname) VALUES(#{username}, #{password}, #{department}, #{name},#{age},#{classname})")
+    int  insert(User user);
 
-    int insert(User record);
+    @Select("SELECT * FROM user WHERE username = #{username}")
+    User selectByUsername(String username);
 
-    int insertSelective(User record);
-
-    User selectByPrimaryKey(String username);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
+    @Select("SELECT * FROM user")
+    List<User> selectAll();
 }

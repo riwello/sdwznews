@@ -1,7 +1,5 @@
 package com.liweile.news.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Date;
 
 public class News {
@@ -14,7 +12,7 @@ public class News {
     private String url;
 
     private String type;
-    @JsonIgnore
+
     private String content;
 
     public Integer getId() {

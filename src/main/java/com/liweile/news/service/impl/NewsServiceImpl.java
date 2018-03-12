@@ -21,7 +21,16 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public ResponseEntity<List<News>> getNewsList(String type, int page, int size) {
         PageHelper.startPage(page, size);
-        List<News> news = newsMapper.selectByType(type);
+        List<News> news = newsMapper.selectNews(type);
+
+        return new ResponseEntity(news, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<News>> serachNews(String word, int page, int size) {
+
+        PageHelper.startPage(page, size);
+        List<News> news = newsMapper.searchNews(word);
 
         return new ResponseEntity(news, HttpStatus.OK);
     }

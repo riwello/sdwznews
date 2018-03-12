@@ -21,9 +21,8 @@ public class UserServiceImpl implements UserService {
         try {
             int insert = userMapper.insert(user);
             System.out.println("insert :" + insert);
-            return new ResponseEntity<>(userMapper.selectByPrimaryKey(user.getUsername()), HttpStatus.OK);
+            return new ResponseEntity(userMapper.selectByUsername(user.getUsername()), HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
             return new ResponseEntity("用户已存在", HttpStatus.BAD_REQUEST);
         }
 
@@ -33,7 +32,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<User> login(String username, String password) {
 
-        User user = userMapper.selectByPrimaryKey(username);
+        User user = userMapper.selectByUsername(username);
+
         if (user == null) {
             return new ResponseEntity("用户不存在", HttpStatus.BAD_REQUEST);
         } else {
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<List<User>> getUserList() {
 
-        List<User> users =new ArrayList<>();
+        List<User> users= userMapper.selectAll();
         if (users!=null&&users.size()>0){
             return new ResponseEntity<>(users,HttpStatus.OK);
         }else {
