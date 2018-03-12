@@ -25,13 +25,18 @@ public class NewsController {
     }
 
 
-      @RequestMapping("/search")
+    @RequestMapping("/search")
     public ResponseEntity<List<News>> serachNews(@RequestParam int page, @RequestParam int size, @RequestParam String word) {
 
         return newsService.serachNews(word, page, size);
     }
 
+    @RequestMapping("/details")
+    public ResponseEntity<String> getContent(@RequestParam int id) {
 
+        return newsService.getConetnt(id);
+    }
 
+    ;
 
 }

@@ -34,4 +34,11 @@ public class NewsServiceImpl implements NewsService {
 
         return new ResponseEntity(news, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<String> getConetnt(int id) {
+        String news =newsMapper.selectContent(id);
+        System.out.println(news);
+        return new ResponseEntity(news, HttpStatus.OK);
+    }
 }
