@@ -29,12 +29,21 @@ public class CollectionServiceImpl implements CollectionService {
 
     @Override
     public void addCollection(Collect collection) {
-        List<Collect> collects = collectMapper.selectByUsernameAndNewsId(collection.getUsername(), collection.getNewsid());
 
 
-        if (collects == null || collects.size() == 0)
             collectMapper.insert(collection);
 
+
+    }
+
+    @Override
+    public ResponseEntity getCollect(String username, int newsid) {
+        System.out.println(username+newsid);
+        Collect collect = collectMapper.selectByUsernameAndNewsId(username, newsid);
+        System.out.println(collect+"");
+        if (collect==null) return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
+
+            return new ResponseEntity(collect, HttpStatus.OK);
 
     }
 }

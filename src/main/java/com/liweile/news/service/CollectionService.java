@@ -13,4 +13,5 @@ public interface CollectionService {
     void addCollection(Collect collection);
 
 
+    ResponseEntity getCollect(String username, int newsid);
 }

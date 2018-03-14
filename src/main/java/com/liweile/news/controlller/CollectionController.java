@@ -4,9 +4,12 @@ package com.liweile.news.controlller;
 import com.liweile.news.model.Collect;
 import com.liweile.news.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RequestMapping("/collect")
 @RestController
@@ -20,5 +23,19 @@ public class CollectionController {
         collectionService.addCollection(new Collect(username,newsid));
 
     }
+
+    @RequestMapping("/collectList")
+    public ResponseEntity<List<Collect>> addCollect(@RequestParam String username){
+       return collectionService.getCollectListByUsername(username);
+
+    }
+
+
+    @RequestMapping("/getcollect")
+    public ResponseEntity<Collect> getCollect(@RequestParam String username,@RequestParam int  newsid){
+       return  collectionService.getCollect(username,newsid);
+
+    }
+
 
 }

@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface CollectMapper {
 
-    @Select("SELECT * FROM colect WHERE username = #{username}")
+    @Select("SELECT * FROM collect WHERE username = #{username}")
     List<Collect> selectByUsername(String username);
 
-   @Select("SELECT * FROM colect WHERE username = #{username} and newsid = #{newsid}")
-    List<Collect> selectByUsernameAndNewsId(String username,int newsid);
+   @Select("SELECT * FROM collect WHERE username = #{arg0} and newsid = #{arg1}")
+    Collect selectByUsernameAndNewsId(String username,int newsid);
 
 
 
