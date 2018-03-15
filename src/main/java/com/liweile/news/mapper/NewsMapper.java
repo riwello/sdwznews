@@ -16,5 +16,8 @@ public interface NewsMapper {
     @Select("SELECT content FROM news WHERE id = #{id}")
     String selectContent(int id);
 
+    @Select("SELECT * FROM news WHERE id = #{id}")
+    News selectbyId(int id);
+
 
 }

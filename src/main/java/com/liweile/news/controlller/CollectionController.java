@@ -2,6 +2,7 @@ package com.liweile.news.controlller;
 
 
 import com.liweile.news.model.Collect;
+import com.liweile.news.model.News;
 import com.liweile.news.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class CollectionController {
     }
 
     @RequestMapping("/collectList")
-    public ResponseEntity<List<Collect>> addCollect(@RequestParam String username){
+    public ResponseEntity<List<News>> getCollectNewsList(@RequestParam String username){
        return collectionService.getCollectListByUsername(username);
 
     }
@@ -37,5 +38,10 @@ public class CollectionController {
 
     }
 
+
+    @RequestMapping("/delete")
+    public void deleteCollect(@RequestParam String username,@RequestParam int  newsid){
+        collectionService.deleteCollect(new Collect(username,newsid));
+    }
 
 }

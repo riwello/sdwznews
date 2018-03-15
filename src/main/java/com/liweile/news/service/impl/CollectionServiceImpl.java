@@ -1,8 +1,10 @@
 package com.liweile.news.service.impl;
 
 import com.liweile.news.mapper.CollectMapper;
+import com.liweile.news.mapper.NewsMapper;
 import com.liweile.news.model.Collect;
 
+import com.liweile.news.model.News;
 import com.liweile.news.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,13 +20,19 @@ public class CollectionServiceImpl implements CollectionService {
     @Autowired
     CollectMapper collectMapper;
 
-
+    @Autowired
+    NewsMapper newsMapper;
     @Override
-    public ResponseEntity<List<Collect>> getCollectListByUsername(String username) {
-        List<Collect> collectList = new ArrayList<>();
+    public ResponseEntity<List<News>> getCollectListByUsername(String username) {
+        List<Collect> collects = collectMapper.selectByUsername(username);
+        List<News> collectNews =new ArrayList<>();
+        for (Collect collect : collects) {
+            News news = newsMapper.selectbyId(collect.getNewsid());
+            if (news!=null)collectNews.add(news);
+        }
 
 
-        return new ResponseEntity(collectList, HttpStatus.OK);
+        return new ResponseEntity(collectNews, HttpStatus.OK);
     }
 
     @Override
@@ -45,5 +53,10 @@ public class CollectionServiceImpl implements CollectionService {
 
             return new ResponseEntity(collect, HttpStatus.OK);
 
+    }
+
+    @Override
+    public void deleteCollect(Collect collect) {
+        collectMapper.delete(collect.getUsername(),collect.getNewsid());
     }
 }

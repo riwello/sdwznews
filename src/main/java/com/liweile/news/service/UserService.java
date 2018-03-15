@@ -13,4 +13,8 @@ public interface UserService {
     ResponseEntity login(String username, String password);
 
     ResponseEntity<List<User>> getUserList();
+
+    void updateClassName(String username, String classname);
+
+    void updateName(String username, String name);
 }

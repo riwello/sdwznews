@@ -34,6 +34,20 @@ public class UserController {
 
        return userService.getUserList();
    }
+   @RequestMapping("/updateclassname")
+    public void setClassName(@RequestParam String username, @RequestParam String classname){
+
+        userService.updateClassName( username, classname);
+   }
+    @RequestMapping("/updatename")
+    public void setName(@RequestParam String username, @RequestParam String name){
+
+        userService.updateName( username, name);
+   }
+
+
+
+
 
 
 }

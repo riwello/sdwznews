@@ -1,6 +1,7 @@
 package com.liweile.news.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.liweile.news.mapper.Bannermapper;
 import com.liweile.news.mapper.NewsMapper;
 import com.liweile.news.model.News;
 import com.liweile.news.service.NewsService;
@@ -17,6 +18,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     NewsMapper newsMapper;
+
+    @Autowired
+    Bannermapper bannermapper;
 
     @Override
     public ResponseEntity<List<News>> getNewsList(String type, int page, int size) {
@@ -40,5 +44,12 @@ public class NewsServiceImpl implements NewsService {
         String news =newsMapper.selectContent(id);
         System.out.println(news);
         return new ResponseEntity(news, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<String>> getBanner() {
+
+        List<String> strings = bannermapper.selectBanner();
+          return new ResponseEntity(strings, HttpStatus.OK);
     }
 }

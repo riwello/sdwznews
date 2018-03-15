@@ -13,4 +13,6 @@ public interface NewsService {
     ResponseEntity<List<News>> serachNews(String word, int page, int size);
 
     ResponseEntity<String >  getConetnt(int id);
+
+    ResponseEntity<List<String>> getBanner();
 }
