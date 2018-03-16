@@ -20,6 +20,6 @@ public interface CollectMapper {
     @Insert(value = "INSERT INTO collect(username,newsid) VALUES(#{username}, #{newsid})")
     int insert(Collect collect);
 
-    @Delete("delete from collect where username=#{arg0} and id=#{arg1}")
+    @Delete("delete from collect WHERE username=#{arg0} and newsid=#{arg1}")
     void delete(String username, int  newsid);
 }
