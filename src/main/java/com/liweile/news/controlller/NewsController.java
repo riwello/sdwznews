@@ -4,10 +4,12 @@ import com.liweile.news.model.News;
 import com.liweile.news.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -42,6 +44,18 @@ public class NewsController {
     public ResponseEntity<List<String>> getBanner() {
 
         return newsService.getBanner();
+    }
+
+    @RequestMapping("/add")
+    public void    addNews(@RequestParam String title,@RequestParam String content,@RequestParam String type){
+        News news = new News();
+        news.setTitle(title);
+        news.setContent(content);
+        news.setType(type);
+        news.setTime(new Date());
+        newsService.addNews(news);
+
+
     }
 
 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Hello World!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+<form action="/news/add" method="get" target="news_iframe" id="newsform">
+    <p> 新闻标题:<input type="text" id="id_title" name="title" size="30"/></p>
+    <p> 新闻内容:<input type="text" id="id_content" name="content" size="30"/></p>
+    <p>新闻类型
+        <select name="type" form="newsform">
+            <option value="xyyw">学院要闻</option>
+            <option value="xxdt">校园动态</option>
+            <option value="mtjj">媒体聚焦</option>
+            <option value="xygg">学院公告</option>
+            <option value="wzjt">文正讲坛</option>
+            <option value="ehb">e海报</option>
+        </select>
+    </p>
+    <input type="submit" id="id_news_submit" name="nm_submit" value="提交"/>
+</form>
+
+<iframe id="id_news_iframe" name="news_iframe" style="display:none;"></iframe>
+
+
+<form action="/notify/add" method="get" target="msg_iframe" >
+    <p> 发布者:<input type="text" id="id_user" name="username" size="20"/></p>
+    <p> 消息内容:<input type="text" id="id_massage" name="content" size="30"/></p>
+
+    <input type="submit" id="id_msg_submit" name="nm_submit" value="发送"/>
+</form>
+
+<iframe id="id_massage_iframe" name="msg_iframe" style="display:none;"></iframe>
+
+
+
+
+
+
+</body>
+</html>

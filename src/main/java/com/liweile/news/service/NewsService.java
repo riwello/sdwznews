@@ -15,4 +15,6 @@ public interface NewsService {
     ResponseEntity<String >  getConetnt(int id);
 
     ResponseEntity<List<String>> getBanner();
+
+    void addNews(News news);
 }

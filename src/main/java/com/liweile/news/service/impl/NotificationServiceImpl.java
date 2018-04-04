@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class NotificationServiceImpl implements NotificationService {
+public class NotificationServiceImpl  implements NotificationService {
 
     @Autowired
     NotificationMapper mapper;
@@ -27,4 +27,7 @@ public class NotificationServiceImpl implements NotificationService {
         List<Notification> notifications = mapper.selectAll();
         return new ResponseEntity(notifications, HttpStatus.OK);
     }
+
+
+
 }

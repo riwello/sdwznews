@@ -1,13 +1,15 @@
 package com.liweile.news.mapper;
 
+import com.liweile.news.model.Collect;
 import com.liweile.news.model.News;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 public interface NewsMapper {
 
-    @Select("SELECT * FROM news WHERE type = #{type}")
+    @Select("SELECT * FROM news WHERE type = #{type} order by time DESC")
     List<News> selectNews(String type);
 
     @Select("SELECT * FROM news WHERE title like CONCAT('%',#{word},'%')")
@@ -19,5 +21,6 @@ public interface NewsMapper {
     @Select("SELECT * FROM news WHERE id = #{id}")
     News selectbyId(int id);
 
-
+    @Insert(value = "INSERT INTO news(title,content,time,type) VALUES(#{title}, #{content},#{time},#{type})")
+    void inser(News news);
 }

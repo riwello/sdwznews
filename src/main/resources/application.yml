@@ -23,9 +23,12 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
+    thymeleaf:
+            prefix: classpath:/templates/
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.liweile.news.model
 
   #pagehelper分页插件配置
+
 

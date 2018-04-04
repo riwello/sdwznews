@@ -52,4 +52,9 @@ public class NewsServiceImpl implements NewsService {
         List<String> strings = bannermapper.selectBanner();
           return new ResponseEntity(strings, HttpStatus.OK);
     }
+
+    @Override
+    public void addNews(News news) {
+        newsMapper.inser(news);
+    }
 }
