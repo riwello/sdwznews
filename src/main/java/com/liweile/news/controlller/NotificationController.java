@@ -25,12 +25,12 @@ public class NotificationController {
     NotificationService notificationService;
 
 
-
     @RequestMapping("/add")
     public void addNotification(@RequestParam String username, @RequestParam String   content){
         notificationService.addNotification(new Notification(username,new Date(),content));
 
         CmdHandler.sendMassage(content);
+
     }
 
     @RequestMapping("/all")
@@ -38,6 +38,5 @@ public class NotificationController {
         return notificationService.getNotificationList();
 
     }
-
 
 }

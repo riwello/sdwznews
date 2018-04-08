@@ -2,6 +2,7 @@ package com.liweile.news.mapper;
 
 import com.liweile.news.model.Collect;
 import com.liweile.news.model.News;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -23,4 +24,8 @@ public interface NewsMapper {
 
     @Insert(value = "INSERT INTO news(title,content,time,type) VALUES(#{title}, #{content},#{time},#{type})")
     void inser(News news);
+
+    @Delete("delete from news where id = #{id}")
+    void delete(int id);
+
 }

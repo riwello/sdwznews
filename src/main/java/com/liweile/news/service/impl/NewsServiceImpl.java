@@ -57,4 +57,9 @@ public class NewsServiceImpl implements NewsService {
     public void addNews(News news) {
         newsMapper.inser(news);
     }
+
+    @Override
+    public void deleteNews(int id) {
+         newsMapper.delete(id);
+    }
 }
