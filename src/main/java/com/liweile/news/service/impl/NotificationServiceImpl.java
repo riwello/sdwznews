@@ -1,6 +1,7 @@
 package com.liweile.news.service.impl;
 
 import com.liweile.news.mapper.NotificationMapper;
+import com.liweile.news.model.HttpResult;
 import com.liweile.news.model.Notification;
 import com.liweile.news.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class NotificationServiceImpl  implements NotificationService {
+public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     NotificationMapper mapper;
 
     @Override
-    public void addNotification(Notification notification) {
+    public ResponseEntity addNotification(Notification notification) {
 
-        mapper.insert(notification);
+        int insert = mapper.insert(notification);
+        if (insert > 0) {
+            return new ResponseEntity(new HttpResult(true), HttpStatus.OK);
+        } else {
+            return new ResponseEntity(new HttpResult(false), HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @Override
@@ -27,7 +34,6 @@ public class NotificationServiceImpl  implements NotificationService {
         List<Notification> notifications = mapper.selectAll();
         return new ResponseEntity(notifications, HttpStatus.OK);
     }
-
 
 
 }

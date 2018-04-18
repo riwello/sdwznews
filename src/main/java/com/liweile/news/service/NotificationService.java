@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface NotificationService {
 
-    void addNotification(Notification notification);
+    ResponseEntity addNotification(Notification notification);
 
     ResponseEntity<List<Notification>> getNotificationList();
 

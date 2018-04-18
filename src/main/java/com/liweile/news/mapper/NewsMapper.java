@@ -23,9 +23,9 @@ public interface NewsMapper {
     News selectbyId(int id);
 
     @Insert(value = "INSERT INTO news(title,content,time,type) VALUES(#{title}, #{content},#{time},#{type})")
-    void inser(News news);
+    int  inser(News news);
 
     @Delete("delete from news where id = #{id}")
-    void delete(int id);
+    int  delete(int id);
 
 }

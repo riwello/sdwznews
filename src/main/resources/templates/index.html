@@ -1,43 +1,589 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" style="font-size:20px;">
 <head>
-    <title>Hello World!</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <style>
+      *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      html,body{
+        height: 100%;
+        width: 100%;
+      }
+      .inputWrap{
+        width: 100%;
+        height: 20%;
+        margin-top: 30px;
+        font-size: 150%;
+      }
+      
+      .mask{
+        position: absolute;
+        /* top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        margin: auto;
+        z-index: 99999;  */
+        width: 100%;
+        height: 100%;
+        background-color: #6a7989;
+        transition: all .5s  ease-in-out;
+      }
+      .mask_hide{
+        transform: scale(0)
+      }
+      
+      .loginWrap{
+        width: 460px;
+        height: 400px;
+        background-color: #ddd;
+        border-radius: 10px;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        margin: auto;
+        
+      }
+
+      .input {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      margin: 1em;
+      max-width: 400px;
+      width: calc(100% - 2em);
+      vertical-align: top;
+    }
+    .input_field {
+    position: relative;
+    display: block;
+    float: right;
+    padding: 0.8em;
+    width: 60%;
+    border: none;
+    border-radius: 0;
+    background: #f0f0f0;
+    color: #aaa;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-appearance: none; /* for box shadows to show on iOS */
+  }
+
+  .graphic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    fill: none;
+  }
+
+  .icon {
+    color: #ddd;
+    font-size: 150%;
+  }
+  .input_field:focus {
+    outline: none;
+  }
+
+  .input_label {
+    display: inline-block;
+    float: right ;
+    padding: 0px 1em;
+    width: 40%;
+    color: #6a7989;
+    font-weight: bold;
+    font-size: 70.25%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .input_label-content {
+    position: relative;
+    display: block;
+    padding: 5px 0;
+    width: 100%;
+  }
+  .input_custom {
+    margin-top: 30px;
+    border-radius: 10px;
+  }
+
+  .input_field_custom {
+    padding: 0.85em 0.5em;
+    width: 100%;
+    background: transparent;
+    border-radius: 10px;
+    font-size: 20px;
+    color: #DDE2E2;
+    opacity: 0;
+    text-align: center;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+  }
+
+  .input_label_custom {
+    position: absolute;
+    left: 0;
+    padding: 0 0.85em;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    pointer-events: none;
+  }
+
+  .input_label-content_custom {
+    -webkit-transition: -webkit-transform 0.3s 0.3s;
+    transition: transform 0.3s 0.3s;
+  }
+
+  .input_label_custom::before,
+  .input_label_custom::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+  }
+
+  .input_label_custom::before {
+    border-top: 2px solid #6a7989;
+    -webkit-transform: translate3d(0, 100%, 0) translate3d(0, -2px, 0);
+    transform: translate3d(0, 100%, 0) translate3d(0, -2px, 0);
+    -webkit-transition-delay: 0.3s;
+    transition-delay: 0.3s;
+  }
+
+  .input_label_custom::after {
+    z-index: -1;
+    background: #6a7989;
+    -webkit-transform: scale3d(1, 0, 1);
+    transform: scale3d(1, 0, 1);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+  }
+
+  .input_field_custom:focus,
+  .input_filled .input_field_custom {
+    opacity: 1;
+    -webkit-transition-delay: 0.3s;
+    transition-delay: 0.3s;
+  }
+
+  .input_field_custom:focus + .input_label_custom .input_label-content_custom,
+  .input_filled .input_label-content_custom {
+    -webkit-transform: translate3d(0, -80%, 0);
+    transform: translate3d(0, -80%, 0);
+    -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  }
+
+  .input_field_custom:focus + .input_label_custom::before,
+  .input_filled .input_label_custom::before {
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+  }
+
+  .input_field_custom:focus + .input_label_custom::before,
+  .input_filled .input_label_custom::before {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  .input_field_custom:focus + .input_label_custom::after,
+  .input_filled .input_label_custom::after {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    -webkit-transition-delay: 0.3s;
+    transition-delay: 0.3s;
+    -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  }
+   /*
+   */
+  .button{
+    width: 50%;
+    height: 50%;
+    display: block;
+    margin:0 auto;
+    font-size: 20px;
+    background-color: #6a7989;
+    color: #ddd;
+    letter-spacing: 2em;
+    text-indent: 2em;
+    text-align: center;
+    border-radius: 10px;
+  }  
+
+   
+  .nav{
+    border-radius: 10px;
+    width: 984px;
+    background-color:#ff9137;
+    height: 40px;
+  }
+  .nav li{
+    float: left;
+    width: 16.6%;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    text-align: center;
+    background-color:#ff9137;
+    color: #FFF;
+  }
+  .nav li.active{
+    background-color: #ee5022 !important;
+  }
+  .nav li:hover{
+    background-color: #dd8822;
+  }
+  .news_list{
+    padding:20px;
+  }
+  .news_list li{
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding:10px 30px;
+    line-height: 32px;
+  }
+  .news_list li:hover{
+    background-color: #ddd;
+  }
+  .news_list li a{
+    text-decoration: none;
+  }
+
+  .news_list li .delete{
+    float: right;
+    margin-right: 40px;
+    background-color: #ee5022;
+    width: 50px;
+    height: 25px;
+    color: #fff;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+  }
+  .news_list li .delete:active{
+    outline: none;
+  }
+
+  .ipt_title{
+    width: 500px;
+    height: 40px;
+    font-size: 17px;
+    text-indent: 1em;
+  }
+  .ipt_content{
+    width: 100%;
+    margin-top: 20px;
+    resize: vertical;
+    text-indent: 1em;
+    padding-top:10px;
+  }
+  .send{
+    float: right;
+    width: 80px;
+    height: 40px;
+    border-radius: 7px;
+    color: #fff;
+    font-size: 18px;
+    background-color: #FFCC02;
+    outline: none;
+  }
+  .send:active{
+    outline: none;
+  }
+    </style>
+    <title>Document</title> 
 </head>
 <body>
-<form action="/news/add" method="get" target="news_iframe" id="newsform">
-    <p> 新闻标题:<input type="text" id="id_title" name="title" size="30"/></p>
-    <p> 新闻内容:<input type="text" id="id_content" name="content" size="30"/></p>
-    <p>新闻类型
-        <select name="type" form="newsform">
+    <div class="mask" id="mask">
+      <div class="loginWrap">
+          <div class="inputWrap">
+              <span class="input input_custom">
+                <input class="input_field input_field_custom" type="text" id="input0" />
+                <label class="input_label input_label_custom" for="input0">
+                  <span class="input_label-content input_label-content_custom">User Name :</span>
+                </label>
+              </span>
+          </div>
+          <div class="inputWrap">
+              <span class="input input_custom">
+                <input class="input_field input_field_custom" type="password" id="input1" />
+                <label class="input_label input_label_custom" for="input1">
+                  <span class="input_label-content input_label-content_custom">Password :</span>
+                </label>
+              </span>
+          </div>
+          <div class="inputWrap" style="padding-top:40px;box-sizing:initial">
+            <button class="button" id="loginBtn">登录</button>
+          </div>
+      </div>
+    </div>
+    
+    <div style="width:980px;margin:0 auto;background-color:#eee;min-height:100%;overflow:hidden;">
+        <div>
+          <ul class="nav" id="nav">
+            <li class="active" data-type="xyyw" id="xyyw">学院要闻</li>
+            <li data-type="xydt" id="xydt">校园动态</li>
+            <li data-type="mtjj" id="mtjj">媒体聚焦</li>
+            <li data-type="xygg" id="xygg">学院公告</li>
+            <li data-type="wzjt" id="wzjt">文正讲坛</li>
+            <li data-type="ehb" id="ehb">e海报</li>
+          </ul>
+        </div>
+        <ul class="news_list" id="news_list">
+        </ul>
+        <div style="height:20px;background-color:#fff;"></div>
+        <div style="width:750px;margin:20px auto;padding:20px 20px 60px;border:1px solid #aaa;">
+          <h3>发布文章</h3>
+          <br>
+          <input type="text" class="ipt_title" id="ipt_title" placeholder="输入文章标题">
+          <select id="type" class="type" style="    width: 150px;height: 40px;">
             <option value="xyyw">学院要闻</option>
-            <option value="xxdt">校园动态</option>
+            <option value="xydt">校园动态</option>
             <option value="mtjj">媒体聚焦</option>
             <option value="xygg">学院公告</option>
             <option value="wzjt">文正讲坛</option>
             <option value="ehb">e海报</option>
-        </select>
-    </p>
-    <input type="submit" id="id_news_submit" name="nm_submit" value="提交"/>
-</form>
+          </select>
+          <textarea id="ipt_content" class="ipt_content" cols="30" rows="10" placeholder="输入文章内容"></textarea>
+          <button id="send" class="send">提 交</button>
+        </div>
+        <div style="height:20px;background-color:#fff;"></div>
+        <div>
+          <h3 style="margin:20px;">发送消息</h3>
+            <input type="text" style="margin:20px;" class="ipt_title" id="ipt_msg" placeholder="输入发送内容">
+            <button id="sendMsg" class="send" style="float:none">发送</button>
+        </div>
+    </div>
 
-<iframe id="id_news_iframe" name="news_iframe" style="display:none;"></iframe>
+    <script>
+      /*
+        简易封装ajax
+      */
+      function $ajax(method, url, params){
+        var queryString
+        if(params){
+          queryString = Object.entries(params).reduce((a,b,c)=>c?a + "&" + b.join('='):'?'+ b.join('='),0)
+        }else{
+          queryString = ''
+        }
+        var promise = new Promise(function(resolve, reject){
+          var xhr = new XMLHttpRequest()
+          method = method.toString().toLocaleUpperCase()
+          var isGet = method == 'GET'
+          xhr.open(method, url + (isGet?queryString : ''), true)
+          xhr.send(isGet ? undefined:queryString)
+          xhr.onreadystatechange = function(){
+            if(this.readyState == 4){
+              try{
+                var data = JSON.parse(xhr.response)
+                resolve(data, xhr)
+              }catch(e){
+                reject(xhr, e)
+              }
+            }
+          }
+        })
+        return promise
+      }
+  </script>    
+    <script>
+        (function() {
+          function classReg( className ) {
+            return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+          }
+          var hasClass, addClass, removeClass;
 
+          if ( 'classList' in document.documentElement ) {
+            hasClass = function( elem, c ) {
+              return elem.classList.contains( c );
+            };
+            addClass = function( elem, c ) {
+              elem.classList.add( c );
+            };
+            removeClass = function( elem, c ) {
+              elem.classList.remove( c );
+            };
+          }else {
+            hasClass = function( elem, c ) {
+              return classReg( c ).test( elem.className );
+            };
+            addClass = function( elem, c ) {
+              if ( !hasClass( elem, c ) ) {
+                elem.className = elem.className + ' ' + c;
+              }
+            };
+            removeClass = function( elem, c ) {
+              elem.className = elem.className.replace( classReg( c ), ' ' );
+            };
+          }
 
-<form action="/notify/add" method="get" target="msg_iframe" >
-    <p> 发布者:<input type="text" id="id_user" name="username" size="20"/></p>
-    <p> 消息内容:<input type="text" id="id_massage" name="content" size="30"/></p>
+          function toggleClass( elem, c ) {
+            var fn = hasClass( elem, c ) ? removeClass : addClass;
+            fn( elem, c );
+          }
 
-    <input type="submit" id="id_msg_submit" name="nm_submit" value="发送"/>
-</form>
-
-<iframe id="id_massage_iframe" name="msg_iframe" style="display:none;"></iframe>
-
-
-
-
-
-
+          var classie = {
+            hasClass: hasClass,
+            addClass: addClass,
+            removeClass: removeClass,
+            toggleClass: toggleClass,
+            has: hasClass,
+            add: addClass,
+            remove: removeClass,
+            toggle: toggleClass
+          };
+          window.classie = classie
+          if (!String.prototype.trim) {
+            (function() {
+              // Make sure we trim BOM and NBSP
+              var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+              String.prototype.trim = function() {
+                return this.replace(rtrim, '');
+              };
+            })();
+          }
+  
+          [].slice.call( document.querySelectorAll( 'input.input_field' ) ).forEach( function( inputEl ) {
+            // in case the input is already filled..
+            if( inputEl.value.trim() !== '' ) {
+              classie.add( inputEl.parentNode, 'input_filled' );
+            }
+            // events:
+            inputEl.addEventListener( 'focus', onInputFocus );
+            inputEl.addEventListener( 'blur', onInputBlur );
+          } );
+          function onInputFocus( ev ) {
+            classie.add( ev.target.parentNode, 'input_filled' );
+          }
+          function onInputBlur( ev ) {
+            if( ev.target.value.trim() === '' ) {
+              classie.remove( ev.target.parentNode, 'input_filled' );
+            }
+          }
+        })();
+      </script>  
+      <script>
+        (function(window){
+          var loginBtn = document.getElementById('loginBtn')
+          var userNameIpt = document.getElementById('input0')
+          var passwordIpt = document.getElementById('input1')
+          var mask = document.getElementById('mask')
+          var nav = document.getElementById('nav')
+          var listWrap = document.getElementById('news_list')
+          var ipt_title = document.getElementById('ipt_title')
+          var ipt_content = document.getElementById('ipt_content')
+          var typeSelect = document.getElementById('type')
+          var send = document.getElementById('send')
+          var sendMsg = document.getElementById('sendMsg')
+          var ipt_msg = document.getElementById('ipt_msg')
+          var type = 'xyyw'
+          //获取type下的数据
+          function getNewsDataByType(type){
+            $ajax('GET','/news/list', {
+              type:type,
+              page:1,
+              size:20,
+            }).then(function(d){
+              renderList('news_list', d)
+            }).catch(function(xhr,e){
+              console.warn(xhr,e)
+            })
+          }
+          //渲染list
+          function renderList(id, data){
+            var wrap = document.getElementById(id)
+            console.log(data)
+            var html = data.map(function(e, i){
+              var template = `<li>
+                              <a href="${e.url || 'javascript:void(0);'}">${e.title}</a>
+                              <button class="delete" data-id="${e.id}" > 删除 </button>
+                            </li>`
+              return template
+            }).join('')
+            wrap.innerHTML = html
+          }
+          sendMsg.addEventListener('click',function(){
+            if(!ipt_msg.value){
+              alert('请输入内容')
+              return 
+            }
+            $ajax('GET','/notify/add',{
+              username:'admin',
+              content:ipt_msg.value
+            }).then(function(d){
+              if(d.result){
+                alert('发送成功')
+              }else{
+                alert('发送失败')
+              }
+            })
+          })
+          send.addEventListener('click',function(){
+            $ajax('GET','/news/add',{
+              title:ipt_title.value,
+              content:ipt_content.value,
+              type:typeSelect.value
+            }).then(function(d){
+              if(d.result){
+                alert('发布文章成功')
+                document.getElementById(typeSelect.value).click()
+              }else{
+                alert('发布文章失败')
+              }
+            }).catch(function(){
+              alert('发布文章失败')
+            })
+          })
+          listWrap.addEventListener('click',function(ev){
+            if(classie.has(ev.target,'delete')){
+              var id = ev.target.getAttribute('data-id')
+              $ajax('GET','/news/delete',{
+                id: id
+              }).then(d =>{
+                if(d.result){
+                  alert('删除成功')
+                  getNewsDataByType(type)
+                }
+              })
+            }
+          })
+          nav.addEventListener('click', function(ev){  
+            Array.prototype.slice.call(this.children).forEach(function(e){
+              classie.remove(e, 'active')
+              //console.log(e)
+            })
+            type = ev.target.getAttribute('data-type')
+            getNewsDataByType(type)
+            classie.add(ev.target, 'active')
+          })
+          loginBtn.addEventListener('click',function(){
+            $ajax('GET','http://127.0.0.1:8111/user/login',{username:userNameIpt.value,password:passwordIpt.value})
+            .then(function(d){
+                if(d.username == "admin" && d.password == "admin"){
+                  window.classie.add(mask, 'mask_hide')
+                  getNewsDataByType(type)
+                }
+            })
+          })
+        })(window)
+      </script>
 </body>
 </html>

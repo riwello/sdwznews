@@ -4,8 +4,6 @@ import com.liweile.news.model.News;
 import com.liweile.news.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,21 +46,21 @@ public class NewsController {
     }
 
     @RequestMapping("/add")
-    public void addNews(@RequestParam String title, @RequestParam String content, @RequestParam String type) {
+    public ResponseEntity addNews(@RequestParam String title, @RequestParam String content, @RequestParam String type) {
         News news = new News();
         news.setTitle(title);
         news.setContent(content);
         news.setType(type);
         news.setTime(new Date());
-        newsService.addNews(news);
+       return newsService.addNews(news);
 
 
     }
 
     @RequestMapping("/delete")
-    public void deleteNews(@RequestParam int id) {
-        newsService.deleteNews(id);
-    };
+    public ResponseEntity deleteNews(@RequestParam int id) {
+        return newsService.deleteNews(id);
+    }
 
 
 }

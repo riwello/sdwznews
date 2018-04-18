@@ -25,6 +25,9 @@ spring:
         maxOpenPreparedStatements: 20
     thymeleaf:
             prefix: classpath:/templates/
+            content-type: text/html
+            cache: false
+            mode: LEGACYHTML5
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.liweile.news.model
