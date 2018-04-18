@@ -1,7 +1,7 @@
 package com.liweile.news.mapper;
 
-import com.liweile.news.model.Collect;
 import com.liweile.news.model.Notification;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -17,5 +17,6 @@ public interface NotificationMapper {
     int  insert(Notification notification);
 
 
-
+    @Delete("delete from notify where id = #{id}")
+    int  delete(int id);
 }

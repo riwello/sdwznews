@@ -35,5 +35,16 @@ public class NotificationServiceImpl implements NotificationService {
         return new ResponseEntity(notifications, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity delete(int id) {
+        int result = mapper.delete(id);
+        if (result>0){
+            return new ResponseEntity(new HttpResult(true),HttpStatus.OK);
+        }else {
+            return new ResponseEntity(new HttpResult(false),HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
 
 }

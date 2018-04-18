@@ -35,5 +35,9 @@ public class NotificationController {
         return notificationService.getNotificationList();
 
     }
+    @RequestMapping("/delete")
+    public ResponseEntity deleteNotify(@RequestParam int id){
+        return notificationService.delete(id);
+    }
 
 }

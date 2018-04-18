@@ -11,4 +11,5 @@ public interface NotificationService {
 
     ResponseEntity<List<Notification>> getNotificationList();
 
+    ResponseEntity delete(int id);
 }
